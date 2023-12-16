@@ -1,0 +1,6 @@
+@AgroScan.WebAPI_HostAddress = http://localhost:5298
+
+GET {{AgroScan.WebAPI_HostAddress}}/api/AgroChemicals/ParseFromExcel
+Accept: application/json
+
+###
