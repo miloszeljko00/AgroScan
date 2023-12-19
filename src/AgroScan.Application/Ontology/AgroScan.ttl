@@ -1,0 +1,194 @@
+@prefix : <http://www.semanticweb.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://agroscan.com/ontology> .
+
+<http://agroscan.com/ontology> rdf:type owl:Ontology ;
+                                rdfs:comment "Ontology about plants, their diseases and agrochemicals used to treat those diseases." .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://agroscan.com/ontology/belongsToAgroChemicalType
+<http://agroscan.com/ontology/belongsToAgroChemicalType> rdf:type owl:ObjectProperty ;
+                                                         rdfs:domain <http://agroscan.com/ontology/AgroChemical> ;
+                                                         rdfs:range <http://agroscan.com/ontology/AgroChemicalType> .
+
+
+###  http://agroscan.com/ontology/belongsToDiseaseType
+<http://agroscan.com/ontology/belongsToDiseaseType> rdf:type owl:ObjectProperty ;
+                                                    rdfs:domain <http://agroscan.com/ontology/Disease> ;
+                                                    rdfs:range <http://agroscan.com/ontology/DiseaseType> .
+
+
+###  http://agroscan.com/ontology/contains
+<http://agroscan.com/ontology/contains> rdf:type owl:ObjectProperty ;
+                                        rdfs:domain <http://agroscan.com/ontology/AgroChemical> ;
+                                        rdfs:range <http://agroscan.com/ontology/ActiveMaterial> ;
+                                        rdfs:comment "AgroChemical contains ActiveMaterial." .
+
+
+###  http://agroscan.com/ontology/cures
+<http://agroscan.com/ontology/cures> rdf:type owl:ObjectProperty ;
+                                     rdfs:domain <http://agroscan.com/ontology/ActiveMaterial> ;
+                                     rdfs:range <http://agroscan.com/ontology/Disease> ;
+                                     rdfs:comment "ActiveMaterial cures Disease." .
+
+
+###  http://agroscan.com/ontology/infects
+<http://agroscan.com/ontology/infects> rdf:type owl:ObjectProperty ;
+                                       rdfs:domain <http://agroscan.com/ontology/Disease> ;
+                                       rdfs:range <http://agroscan.com/ontology/Plant> ;
+                                       rdfs:comment "Disease infects Plant." .
+
+
+###  http://agroscan.com/ontology/prevents
+<http://agroscan.com/ontology/prevents> rdf:type owl:ObjectProperty ;
+                                        rdfs:domain <http://agroscan.com/ontology/AgroChemicalType> ;
+                                        rdfs:range <http://agroscan.com/ontology/DiseaseType> .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://agroscan.com/ontology/activeMaterialAmount
+<http://agroscan.com/ontology/activeMaterialAmount> rdf:type owl:DatatypeProperty ;
+                                                    rdfs:domain [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://agroscan.com/ontology/contains> ;
+                                                                  owl:someValuesFrom <http://agroscan.com/ontology/AgroChemical>
+                                                                ] ;
+                                                    rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/activeMaterialName
+<http://agroscan.com/ontology/activeMaterialName> rdf:type owl:DatatypeProperty ;
+                                                  rdfs:domain <http://agroscan.com/ontology/ActiveMaterial> ;
+                                                  rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/agroChemicalManufacturer
+<http://agroscan.com/ontology/agroChemicalManufacturer> rdf:type owl:DatatypeProperty ;
+                                                        rdfs:domain <http://agroscan.com/ontology/AgroChemical> ;
+                                                        rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/agroChemicalName
+<http://agroscan.com/ontology/agroChemicalName> rdf:type owl:DatatypeProperty ;
+                                                rdfs:domain <http://agroscan.com/ontology/AgroChemical> ;
+                                                rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/agroChemicalRepresentative
+<http://agroscan.com/ontology/agroChemicalRepresentative> rdf:type owl:DatatypeProperty ;
+                                                          rdfs:domain <http://agroscan.com/ontology/AgroChemical> ;
+                                                          rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/agroChemicalTypeName
+<http://agroscan.com/ontology/agroChemicalTypeName> rdf:type owl:DatatypeProperty ;
+                                                    rdfs:subPropertyOf owl:topDataProperty ;
+                                                    rdfs:domain <http://agroscan.com/ontology/AgroChemicalType> ;
+                                                    rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/diseaseName
+<http://agroscan.com/ontology/diseaseName> rdf:type owl:DatatypeProperty ;
+                                           rdfs:domain <http://agroscan.com/ontology/Disease> ;
+                                           rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/diseaseTypeName
+<http://agroscan.com/ontology/diseaseTypeName> rdf:type owl:DatatypeProperty ;
+                                               rdfs:domain <http://agroscan.com/ontology/DiseaseType> ;
+                                               rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/plantName
+<http://agroscan.com/ontology/plantName> rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain <http://agroscan.com/ontology/Plant> ;
+                                         rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://agroscan.com/ontology/ActiveMaterial
+<http://agroscan.com/ontology/ActiveMaterial> rdf:type owl:Class .
+
+
+###  http://agroscan.com/ontology/AgroChemical
+<http://agroscan.com/ontology/AgroChemical> rdf:type owl:Class .
+
+
+###  http://agroscan.com/ontology/AgroChemicalType
+<http://agroscan.com/ontology/AgroChemicalType> rdf:type owl:Class .
+
+
+###  http://agroscan.com/ontology/Disease
+<http://agroscan.com/ontology/Disease> rdf:type owl:Class .
+
+
+###  http://agroscan.com/ontology/DiseaseType
+<http://agroscan.com/ontology/DiseaseType> rdf:type owl:Class .
+
+
+###  http://agroscan.com/ontology/Plant
+<http://agroscan.com/ontology/Plant> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://agroscan.com/ontology/bacterial_spot
+<http://agroscan.com/ontology/bacterial_spot> rdf:type owl:NamedIndividual ,
+                                                       <http://agroscan.com/ontology/Disease> ;
+                                              <http://agroscan.com/ontology/belongsToDiseaseType> <http://agroscan.com/ontology/fungal> ;
+                                              <http://agroscan.com/ontology/infects> <http://agroscan.com/ontology/tomato> ;
+                                              <http://agroscan.com/ontology/diseaseName> "Bacterial Spot" .
+
+
+###  http://agroscan.com/ontology/bakar_iz_bakar-hidroksida
+<http://agroscan.com/ontology/bakar_iz_bakar-hidroksida> rdf:type owl:NamedIndividual ,
+                                                                  <http://agroscan.com/ontology/ActiveMaterial> ;
+                                                         <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/bacterial_spot> ;
+                                                         <http://agroscan.com/ontology/activeMaterialName> "bakar iz bakar-hidroksida" .
+
+
+###  http://agroscan.com/ontology/fungal
+<http://agroscan.com/ontology/fungal> rdf:type owl:NamedIndividual ,
+                                               <http://agroscan.com/ontology/DiseaseType> ;
+                                      <http://agroscan.com/ontology/diseaseTypeName> "Fungal" .
+
+
+###  http://agroscan.com/ontology/fungicide
+<http://agroscan.com/ontology/fungicide> rdf:type owl:NamedIndividual ,
+                                                  <http://agroscan.com/ontology/AgroChemicalType> ;
+                                         <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/fungal> ;
+                                         <http://agroscan.com/ontology/agroChemicalTypeName> "Fungicide" .
+
+
+###  http://agroscan.com/ontology/kocide_2000
+<http://agroscan.com/ontology/kocide_2000> rdf:type owl:NamedIndividual ,
+                                                    <http://agroscan.com/ontology/AgroChemical> ;
+                                           <http://agroscan.com/ontology/belongsToAgroChemicalType> <http://agroscan.com/ontology/fungicide> ;
+                                           <http://agroscan.com/ontology/contains> <http://agroscan.com/ontology/bakar_iz_bakar-hidroksida> ;
+                                           <http://agroscan.com/ontology/activeMaterialAmount> "35%" ;
+                                           <http://agroscan.com/ontology/agroChemicalManufacturer> "Kocide LLC, SAD" ;
+                                           <http://agroscan.com/ontology/agroChemicalName> "Kocide 2000" ;
+                                           <http://agroscan.com/ontology/agroChemicalRepresentative> "KNE Certis, Београд" .
+
+
+###  http://agroscan.com/ontology/tomato
+<http://agroscan.com/ontology/tomato> rdf:type owl:NamedIndividual ,
+                                               <http://agroscan.com/ontology/Plant> ;
+                                      <http://agroscan.com/ontology/plantName> "Tomato" .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

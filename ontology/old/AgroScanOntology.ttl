@@ -1,0 +1,63 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix agroscan: <http://example.org/agroscanontology#>.
+
+
+
+agroscan:AgroChemical rdf:type rdf:Class, rdfs:Class .
+agroscan:Plant rdf:type rdf:Class, rdfs:Class .
+agroscan:Disease rdf:type rdf:Class, rdfs:Class .
+
+agroscan:Herbicide rdf:type agroscan:AgroChemicalType .
+agroscan:GrowthRegulator rdf:type agroscan:AgroChemicalType .
+agroscan:Fungicides rdf:type agroscan:AgroChemicalType .
+agroscan:FungicidesForSeedTreatment rdf:type agroscan:AgroChemicalType .
+agroscan:Insecticide rdf:type agroscan:AgroChemicalType .
+agroscan:InsecticideForSeedTreatment rdf:type agroscan:AgroChemicalType .
+agroscan:Acaricides rdf:type agroscan:AgroChemicalType .
+agroscan:Nematocides rdf:type agroscan:AgroChemicalType .
+agroscan:Limacids rdf:type agroscan:AgroChemicalType .
+agroscan:Rodenticides rdf:type agroscan:AgroChemicalType .
+agroscan:Repellents rdf:type agroscan:AgroChemicalType .
+agroscan:Disinfectants rdf:type agroscan:AgroChemicalType .
+agroscan:BioGrowthRegulator rdf:type agroscan:AgroChemicalType .
+agroscan:BioFungicidesMicrobiological rdf:type agroscan:AgroChemicalType .
+agroscan:BioFungicidesBiochemical rdf:type agroscan:AgroChemicalType .
+agroscan:BioInsecticidesMicrobiological rdf:type agroscan:AgroChemicalType .
+agroscan:BioAcaricidesMicrobiological rdf:type agroscan:AgroChemicalType .
+agroscan:Adjuvant rdf:type agroscan:AgroChemicalType .
+
+
+
+agroscan:hasAgroChemicalName rdf:type rdf:Property, rdfs:DatatypeProperty ;
+    rdfs:domain agroscan:AgroChemical .
+
+agroscan:hasAgroChemicalType rdf:type rdf:Property, rdfs:DatatypeProperty ;
+    rdfs:domain agroscan:AgroChemical ;
+    rdfs:range agroscan:AgroChemicalType .
+
+agroscan:hasPlantName rdf:type rdf:Property, rdfs:DatatypeProperty ;
+    rdfs:domain agroscan:Plant .
+
+agroscan:hasDiseaseName rdf:type rdf:Property, rdfs:DatatypeProperty ;
+    rdfs:domain agroscan:Disease .
+
+agroscan:hasActiveMaterial rdf:type rdf:Property, rdfs:ObjectProperty ;
+    rdfs:domain agroscan:AgroChemical ;
+	rdfs:domain agroscan:Disease ;
+    rdfs:range rdf:List ;
+    rdfs:subPropertyOf rdf:member .
+
+agroscan:hasActiveMaterialAmount rdf:type rdf:Property, rdfs:DatatypeProperty ;
+    rdfs:domain agroscan:AgroChemical .
+
+agroscan:hasManufacturer rdf:type rdf:Property, rdfs:DatatypeProperty ;
+    rdfs:domain agroscan:AgroChemical .
+
+agroscan:hasRepresentative rdf:type rdf:Property, rdfs:DatatypeProperty ;
+    rdfs:domain agroscan:AgroChemical .
+
+agroscan:hasDisease rdf:type rdf:Property, rdfs:ObjectProperty ;
+    rdfs:domain agroscan:Plant ;
+    rdfs:range rdf:List ;
+    rdfs:subPropertyOf rdf:member .
