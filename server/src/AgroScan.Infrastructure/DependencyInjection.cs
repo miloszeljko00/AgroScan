@@ -1,23 +1,35 @@
-﻿using AgroScan.Application.Common.Behaviours;
-using System.Reflection;
-using VDS.RDF;
+﻿using AgroScan.Application.Common.Interfaces;
+using AgroScan.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using VDS.RDF.Parsing;
 using VDS.RDF.Query;
+using VDS.RDF;
+using AgroScan.Infrastructure.Ontology;
 
 namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        services.AddMediatR(cfg =>
+        if(string.IsNullOrEmpty(connectionString))
         {
-            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
-            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
+            throw new InvalidOperationException("DefaultConnection is null or empty.");
+        }
+
+        services.AddDbContext<ApplicationDbContext>((sp, options) =>
+        {
+            options.UseNpgsql(connectionString, npgsqlOptions =>
+            {
+                npgsqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
+            });
         });
+        services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+        services.AddScoped<ApplicationDbContextInitialiser>();
+        services.AddSingleton(TimeProvider.System);
+
 
         // Add RDF services as needed
         services.AddSingleton<IGraph>(provider =>
@@ -44,7 +56,7 @@ public static class DependencyInjection
             var leviathanQueryProcessor = provider.GetRequiredService<LeviathanQueryProcessor>();
             return leviathanQueryProcessor;
         });
-
+        services.AddScoped<IOntologyService, OntologyService>();
         return services;
     }
 }
