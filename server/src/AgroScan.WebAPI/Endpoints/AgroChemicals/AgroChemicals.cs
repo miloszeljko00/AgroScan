@@ -1,30 +1,42 @@
 ﻿using AgroScan.Application.Features.AgroChemicals.Commands;
 using AgroScan.Application.Features.AgroChemicals.Queries;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AgroScan.WebAPI.Endpoints.AgroChemicals;
 public static class AgroChemicals
 {
     public static void MapAgroChemicals(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/v1/agrochemicals/get-all", GetAll);
-        app.MapGet("/api/v1/agrochemicals/parse-from-excel", ParseFromExcel);
         app.MapGet("/api/v1/agrochemicals/get-recommendation-for-disease/{diseaseName}", GetRecommendationForDisease);
-    }
-
-    private static async Task<IResult> GetAll(ISender sender)
-    {
-        var result = await sender.Send(new ParseFromExcelCommand());
-        return Results.Ok(result);
-    }
-    private static async Task<IResult> ParseFromExcel(ISender sender)
-    {
-        var result = await sender.Send(new ParseFromExcelCommand());
-        return Results.Ok(result);
+        app.MapPost("/api/v1/agrochemicals/parse-from-excel", ParseFromExcel).DisableAntiforgery();
     }
     private static async Task<IResult> GetRecommendationForDisease(ISender sender, string diseaseName)
     {
         var result = await sender.Send(new GetRecommendationForDiseaseQuery() { DiseaseName=diseaseName });
         return Results.Ok(result);
+    }
+    private static async Task<IResult> ParseFromExcel(ISender sender, [FromForm] IFormFile excelFile)
+    {
+        if (excelFile != null)
+        {
+            try
+            {
+                using var memoryStream = new MemoryStream();
+                await excelFile.CopyToAsync(memoryStream);
+                memoryStream.Position = 0;
+
+                var result = await sender.Send(new ParseFromExcelCommand() { ExcelStream = memoryStream });
+                return Results.Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest($"Error processing Excel file: {ex.Message}");
+            }
+        }
+        else
+        {
+            return Results.BadRequest("No Excel file found in the request.");
+        }
     }
 
 }

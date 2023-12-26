@@ -1,5 +1,6 @@
 using AgroScan.Infrastructure.Data;
 using AgroScan.WebAPI.Infrastructure;
+using OfficeOpenXml;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,7 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
 
 var app = builder.Build();
-
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -36,7 +37,6 @@ app.UseStaticFiles();
 app.MapFallbackToFile("index.html");
 
 app.UseExceptionHandler(options => { });
-
 app.MapEndpoints();
 
 app.Run();
