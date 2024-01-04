@@ -1,0 +1,374 @@
+@prefix : <http://www.semanticweb.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://agroscan.com/ontology> .
+
+<http://agroscan.com/ontology> rdf:type owl:Ontology ;
+                                rdfs:comment "Ontology about plants, their diseases and agrochemicals used to treat those diseases." .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://agroscan.com/ontology/belongsToAgroChemicalType
+<http://agroscan.com/ontology/belongsToAgroChemicalType> rdf:type owl:ObjectProperty ;
+                                                         rdfs:domain <http://agroscan.com/ontology/AgroChemical> ;
+                                                         rdfs:range <http://agroscan.com/ontology/AgroChemicalType> .
+
+
+###  http://agroscan.com/ontology/belongsToDiseaseType
+<http://agroscan.com/ontology/belongsToDiseaseType> rdf:type owl:ObjectProperty ;
+                                                    rdfs:domain <http://agroscan.com/ontology/Disease> ;
+                                                    rdfs:range <http://agroscan.com/ontology/DiseaseType> .
+
+
+###  http://agroscan.com/ontology/contains
+<http://agroscan.com/ontology/contains> rdf:type owl:ObjectProperty ;
+                                        rdfs:domain <http://agroscan.com/ontology/AgroChemical> ;
+                                        rdfs:range <http://agroscan.com/ontology/AgroChemicalActiveMaterial> ;
+                                        rdfs:comment "AgroChemical contains ActiveMaterial." .
+
+
+###  http://agroscan.com/ontology/cures
+<http://agroscan.com/ontology/cures> rdf:type owl:ObjectProperty ;
+                                     rdfs:domain <http://agroscan.com/ontology/ActiveMaterial> ;
+                                     rdfs:range <http://agroscan.com/ontology/Disease> ;
+                                     rdfs:comment "ActiveMaterial cures Disease." .
+
+
+###  http://agroscan.com/ontology/infects
+<http://agroscan.com/ontology/infects> rdf:type owl:ObjectProperty ;
+                                       rdfs:domain <http://agroscan.com/ontology/Disease> ;
+                                       rdfs:range <http://agroscan.com/ontology/Plant> ;
+                                       rdfs:comment "Disease infects Plant." .
+
+
+###  http://agroscan.com/ontology/isActiveMaterial
+<http://agroscan.com/ontology/isActiveMaterial> rdf:type owl:ObjectProperty ;
+                                                rdfs:domain <http://agroscan.com/ontology/AgroChemicalActiveMaterial> ;
+                                                rdfs:range <http://agroscan.com/ontology/ActiveMaterial> .
+
+
+###  http://agroscan.com/ontology/prevents
+<http://agroscan.com/ontology/prevents> rdf:type owl:ObjectProperty ;
+                                        rdfs:domain <http://agroscan.com/ontology/AgroChemicalType> ;
+                                        rdfs:range <http://agroscan.com/ontology/DiseaseType> .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://agroscan.com/ontology/activeMaterialAmount
+<http://agroscan.com/ontology/activeMaterialAmount> rdf:type owl:DatatypeProperty ;
+                                                    rdfs:domain <http://agroscan.com/ontology/AgroChemicalActiveMaterial> ;
+                                                    rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/activeMaterialName
+<http://agroscan.com/ontology/activeMaterialName> rdf:type owl:DatatypeProperty ;
+                                                  rdfs:domain <http://agroscan.com/ontology/ActiveMaterial> ;
+                                                  rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/agroChemicalManufacturer
+<http://agroscan.com/ontology/agroChemicalManufacturer> rdf:type owl:DatatypeProperty ;
+                                                        rdfs:domain <http://agroscan.com/ontology/AgroChemical> ;
+                                                        rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/agroChemicalName
+<http://agroscan.com/ontology/agroChemicalName> rdf:type owl:DatatypeProperty ;
+                                                rdfs:domain <http://agroscan.com/ontology/AgroChemical> ;
+                                                rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/agroChemicalRepresentative
+<http://agroscan.com/ontology/agroChemicalRepresentative> rdf:type owl:DatatypeProperty ;
+                                                          rdfs:domain <http://agroscan.com/ontology/AgroChemical> ;
+                                                          rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/agroChemicalTypeName
+<http://agroscan.com/ontology/agroChemicalTypeName> rdf:type owl:DatatypeProperty ;
+                                                    rdfs:subPropertyOf owl:topDataProperty ;
+                                                    rdfs:domain <http://agroscan.com/ontology/AgroChemicalType> ;
+                                                    rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/diseaseName
+<http://agroscan.com/ontology/diseaseName> rdf:type owl:DatatypeProperty ;
+                                           rdfs:domain <http://agroscan.com/ontology/Disease> ;
+                                           rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/diseaseTypeName
+<http://agroscan.com/ontology/diseaseTypeName> rdf:type owl:DatatypeProperty ;
+                                               rdfs:domain <http://agroscan.com/ontology/DiseaseType> ;
+                                               rdfs:range xsd:string .
+
+
+###  http://agroscan.com/ontology/plantName
+<http://agroscan.com/ontology/plantName> rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain <http://agroscan.com/ontology/Plant> ;
+                                         rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://agroscan.com/ontology/ActiveMaterial
+<http://agroscan.com/ontology/ActiveMaterial> rdf:type owl:Class .
+
+
+###  http://agroscan.com/ontology/AgroChemical
+<http://agroscan.com/ontology/AgroChemical> rdf:type owl:Class .
+
+
+###  http://agroscan.com/ontology/AgroChemicalActiveMaterial
+<http://agroscan.com/ontology/AgroChemicalActiveMaterial> rdf:type owl:Class .
+
+
+###  http://agroscan.com/ontology/AgroChemicalType
+<http://agroscan.com/ontology/AgroChemicalType> rdf:type owl:Class .
+
+
+###  http://agroscan.com/ontology/Disease
+<http://agroscan.com/ontology/Disease> rdf:type owl:Class .
+
+
+###  http://agroscan.com/ontology/DiseaseType
+<http://agroscan.com/ontology/DiseaseType> rdf:type owl:Class .
+
+
+###  http://agroscan.com/ontology/Plant
+<http://agroscan.com/ontology/Plant> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://agroscan.com/ontology/acaricide
+<http://agroscan.com/ontology/acaricide> rdf:type owl:NamedIndividual ,
+                                                  <http://agroscan.com/ontology/AgroChemicalType> ;
+                                         <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/acaridal> ;
+                                         <http://agroscan.com/ontology/agroChemicalTypeName> "Acaride" .
+
+
+###  http://agroscan.com/ontology/acaridal
+<http://agroscan.com/ontology/acaridal> rdf:type owl:NamedIndividual ,
+                                                 <http://agroscan.com/ontology/DiseaseType> ;
+                                        <http://agroscan.com/ontology/diseaseTypeName> "Acaridal" .
+
+
+###  http://agroscan.com/ontology/adjuvent
+<http://agroscan.com/ontology/adjuvent> rdf:type owl:NamedIndividual ,
+                                                 <http://agroscan.com/ontology/AgroChemicalType> ;
+                                        <http://agroscan.com/ontology/agroChemicalTypeName> "Adjuvent" .
+
+
+###  http://agroscan.com/ontology/bacterial_spot
+<http://agroscan.com/ontology/bacterial_spot> rdf:type owl:NamedIndividual ,
+                                                       <http://agroscan.com/ontology/Disease> ;
+                                              <http://agroscan.com/ontology/belongsToDiseaseType> <http://agroscan.com/ontology/fungal> ;
+                                              <http://agroscan.com/ontology/infects> <http://agroscan.com/ontology/tomato> ;
+                                              <http://agroscan.com/ontology/diseaseName> "Bacterial Spot" .
+
+
+###  http://agroscan.com/ontology/bio_growth_regulator
+<http://agroscan.com/ontology/bio_growth_regulator> rdf:type owl:NamedIndividual ,
+                                                             <http://agroscan.com/ontology/AgroChemicalType> ;
+                                                    <http://agroscan.com/ontology/agroChemicalTypeName> "Biogrowth regulator" .
+
+
+###  http://agroscan.com/ontology/bioacaricide_microbiological
+<http://agroscan.com/ontology/bioacaricide_microbiological> rdf:type owl:NamedIndividual ,
+                                                                     <http://agroscan.com/ontology/AgroChemicalType> ;
+                                                            <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/acaridal> ;
+                                                            <http://agroscan.com/ontology/agroChemicalTypeName> "Bioacaride microbiological" .
+
+
+###  http://agroscan.com/ontology/biofungicide_biochemical
+<http://agroscan.com/ontology/biofungicide_biochemical> rdf:type owl:NamedIndividual ,
+                                                                 <http://agroscan.com/ontology/AgroChemicalType> ;
+                                                        <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/fungal> ;
+                                                        <http://agroscan.com/ontology/agroChemicalTypeName> "Biofungicide biochemical" .
+
+
+###  http://agroscan.com/ontology/biofungicide_microbiological
+<http://agroscan.com/ontology/biofungicide_microbiological> rdf:type owl:NamedIndividual ,
+                                                                     <http://agroscan.com/ontology/AgroChemicalType> ;
+                                                            <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/fungal> ;
+                                                            <http://agroscan.com/ontology/agroChemicalTypeName> "Biofungicide microbiological" .
+
+
+###  http://agroscan.com/ontology/bioinsecticide_microbiological
+<http://agroscan.com/ontology/bioinsecticide_microbiological> rdf:type owl:NamedIndividual ,
+                                                                       <http://agroscan.com/ontology/AgroChemicalType> ;
+                                                              <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/viral> ;
+                                                              <http://agroscan.com/ontology/agroChemicalTypeName> "Bioinsecticide microbiological" .
+
+
+###  http://agroscan.com/ontology/disinfectant
+<http://agroscan.com/ontology/disinfectant> rdf:type owl:NamedIndividual ,
+                                                     <http://agroscan.com/ontology/AgroChemicalType> ;
+                                            <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/viral> ;
+                                            <http://agroscan.com/ontology/agroChemicalTypeName> "Disinfectant" .
+
+
+###  http://agroscan.com/ontology/early_blight
+<http://agroscan.com/ontology/early_blight> rdf:type owl:NamedIndividual ,
+                                                     <http://agroscan.com/ontology/Disease> ;
+                                            <http://agroscan.com/ontology/belongsToDiseaseType> <http://agroscan.com/ontology/fungal> ;
+                                            <http://agroscan.com/ontology/infects> <http://agroscan.com/ontology/tomato> ;
+                                            <http://agroscan.com/ontology/diseaseName> "Early blight" .
+
+
+###  http://agroscan.com/ontology/fungal
+<http://agroscan.com/ontology/fungal> rdf:type owl:NamedIndividual ,
+                                               <http://agroscan.com/ontology/DiseaseType> ;
+                                      <http://agroscan.com/ontology/diseaseTypeName> "Fungal" .
+
+
+###  http://agroscan.com/ontology/fungicide
+<http://agroscan.com/ontology/fungicide> rdf:type owl:NamedIndividual ,
+                                                  <http://agroscan.com/ontology/AgroChemicalType> ;
+                                         <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/fungal> ;
+                                         <http://agroscan.com/ontology/agroChemicalTypeName> "Fungicide" .
+
+
+###  http://agroscan.com/ontology/fungicide_for_seed_treatment
+<http://agroscan.com/ontology/fungicide_for_seed_treatment> rdf:type owl:NamedIndividual ,
+                                                                     <http://agroscan.com/ontology/AgroChemicalType> ;
+                                                            <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/fungal> ;
+                                                            <http://agroscan.com/ontology/agroChemicalTypeName> "Fungicide for seed treatment" .
+
+
+###  http://agroscan.com/ontology/growth_regulator
+<http://agroscan.com/ontology/growth_regulator> rdf:type owl:NamedIndividual ,
+                                                         <http://agroscan.com/ontology/AgroChemicalType> ;
+                                                <http://agroscan.com/ontology/agroChemicalTypeName> "Growth regulator" .
+
+
+###  http://agroscan.com/ontology/herbicide
+<http://agroscan.com/ontology/herbicide> rdf:type owl:NamedIndividual ,
+                                                  <http://agroscan.com/ontology/AgroChemicalType> ;
+                                         <http://agroscan.com/ontology/agroChemicalTypeName> "Herbicide" .
+
+
+###  http://agroscan.com/ontology/insecticide
+<http://agroscan.com/ontology/insecticide> rdf:type owl:NamedIndividual ,
+                                                    <http://agroscan.com/ontology/AgroChemicalType> ;
+                                           <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/viral> ;
+                                           <http://agroscan.com/ontology/agroChemicalTypeName> "Insecticide" .
+
+
+###  http://agroscan.com/ontology/insecticide_for_seed_treatment
+<http://agroscan.com/ontology/insecticide_for_seed_treatment> rdf:type owl:NamedIndividual ,
+                                                                       <http://agroscan.com/ontology/AgroChemicalType> ;
+                                                              <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/viral> ;
+                                                              <http://agroscan.com/ontology/agroChemicalTypeName> "Insecticide for seed treatment" .
+
+
+###  http://agroscan.com/ontology/late_blight
+<http://agroscan.com/ontology/late_blight> rdf:type owl:NamedIndividual ,
+                                                    <http://agroscan.com/ontology/Disease> ;
+                                           <http://agroscan.com/ontology/belongsToDiseaseType> <http://agroscan.com/ontology/fungal> ;
+                                           <http://agroscan.com/ontology/infects> <http://agroscan.com/ontology/tomato> ;
+                                           <http://agroscan.com/ontology/diseaseName> "Late blight" .
+
+
+###  http://agroscan.com/ontology/leaf_mold
+<http://agroscan.com/ontology/leaf_mold> rdf:type owl:NamedIndividual ,
+                                                  <http://agroscan.com/ontology/Disease> ;
+                                         <http://agroscan.com/ontology/belongsToDiseaseType> <http://agroscan.com/ontology/fungal> ;
+                                         <http://agroscan.com/ontology/infects> <http://agroscan.com/ontology/tomato> ;
+                                         <http://agroscan.com/ontology/diseaseName> "Leaf mold" .
+
+
+###  http://agroscan.com/ontology/limacid
+<http://agroscan.com/ontology/limacid> rdf:type owl:NamedIndividual ,
+                                                <http://agroscan.com/ontology/AgroChemicalType> ;
+                                       <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/viral> ;
+                                       <http://agroscan.com/ontology/agroChemicalTypeName> "Limacide" .
+
+
+###  http://agroscan.com/ontology/mosaic_virus
+<http://agroscan.com/ontology/mosaic_virus> rdf:type owl:NamedIndividual ,
+                                                     <http://agroscan.com/ontology/Disease> ;
+                                            <http://agroscan.com/ontology/belongsToDiseaseType> <http://agroscan.com/ontology/viral> ;
+                                            <http://agroscan.com/ontology/infects> <http://agroscan.com/ontology/tomato> ;
+                                            <http://agroscan.com/ontology/diseaseName> "Mosaic virus (ToMV)" .
+
+
+###  http://agroscan.com/ontology/nematocide
+<http://agroscan.com/ontology/nematocide> rdf:type owl:NamedIndividual ,
+                                                   <http://agroscan.com/ontology/AgroChemicalType> ;
+                                          <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/viral> ;
+                                          <http://agroscan.com/ontology/agroChemicalTypeName> "Nematocide" .
+
+
+###  http://agroscan.com/ontology/repellent
+<http://agroscan.com/ontology/repellent> rdf:type owl:NamedIndividual ,
+                                                  <http://agroscan.com/ontology/AgroChemicalType> ;
+                                         <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/viral> ;
+                                         <http://agroscan.com/ontology/agroChemicalTypeName> "Repellent" .
+
+
+###  http://agroscan.com/ontology/rodenticide
+<http://agroscan.com/ontology/rodenticide> rdf:type owl:NamedIndividual ,
+                                                    <http://agroscan.com/ontology/AgroChemicalType> ;
+                                           <http://agroscan.com/ontology/prevents> <http://agroscan.com/ontology/viral> ;
+                                           <http://agroscan.com/ontology/agroChemicalTypeName> "Rodenticide" .
+
+
+###  http://agroscan.com/ontology/septoria_leaf_spot
+<http://agroscan.com/ontology/septoria_leaf_spot> rdf:type owl:NamedIndividual ,
+                                                           <http://agroscan.com/ontology/Disease> ;
+                                                  <http://agroscan.com/ontology/belongsToDiseaseType> <http://agroscan.com/ontology/fungal> ;
+                                                  <http://agroscan.com/ontology/infects> <http://agroscan.com/ontology/tomato> ;
+                                                  <http://agroscan.com/ontology/diseaseName> "Septoria leaf spot" .
+
+
+###  http://agroscan.com/ontology/spider_mites_two-spotted_spider_mite
+<http://agroscan.com/ontology/spider_mites_two-spotted_spider_mite> rdf:type owl:NamedIndividual ,
+                                                                             <http://agroscan.com/ontology/Disease> ;
+                                                                    <http://agroscan.com/ontology/belongsToDiseaseType> <http://agroscan.com/ontology/acaridal> ;
+                                                                    <http://agroscan.com/ontology/infects> <http://agroscan.com/ontology/tomato> ;
+                                                                    <http://agroscan.com/ontology/diseaseName> "Spider mites (Two-Spotted spider mite)" .
+
+
+###  http://agroscan.com/ontology/target_spot
+<http://agroscan.com/ontology/target_spot> rdf:type owl:NamedIndividual ,
+                                                    <http://agroscan.com/ontology/Disease> ;
+                                           <http://agroscan.com/ontology/belongsToDiseaseType> <http://agroscan.com/ontology/fungal> ;
+                                           <http://agroscan.com/ontology/infects> <http://agroscan.com/ontology/tomato> ;
+                                           <http://agroscan.com/ontology/diseaseName> "Target spot" .
+
+
+###  http://agroscan.com/ontology/tomato
+<http://agroscan.com/ontology/tomato> rdf:type owl:NamedIndividual ,
+                                               <http://agroscan.com/ontology/Plant> ;
+                                      <http://agroscan.com/ontology/plantName> "Tomato" .
+
+
+###  http://agroscan.com/ontology/viral
+<http://agroscan.com/ontology/viral> rdf:type owl:NamedIndividual ,
+                                              <http://agroscan.com/ontology/DiseaseType> ;
+                                     <http://agroscan.com/ontology/diseaseTypeName> "Viral" .
+
+
+###  http://agroscan.com/ontology/yellow_leaf_curl_virus
+<http://agroscan.com/ontology/yellow_leaf_curl_virus> rdf:type owl:NamedIndividual ,
+                                                               <http://agroscan.com/ontology/Disease> ;
+                                                      <http://agroscan.com/ontology/belongsToDiseaseType> <http://agroscan.com/ontology/viral> ;
+                                                      <http://agroscan.com/ontology/infects> <http://agroscan.com/ontology/tomato> ;
+                                                      <http://agroscan.com/ontology/diseaseName> "Yellow leaf curl virus (TYLCV)" .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

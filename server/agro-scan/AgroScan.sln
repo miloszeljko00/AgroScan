@@ -5,19 +5,24 @@ VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C772ADB7-B971-4749-B8D5-D3D90988266B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroScan.WebAPI", "src\AgroScan.WebAPI\AgroScan.WebAPI.csproj", "{A2236185-5502-46CD-8650-02428E1EA572}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgroScan.WebAPI", "src\AgroScan.WebAPI\AgroScan.WebAPI.csproj", "{A2236185-5502-46CD-8650-02428E1EA572}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroScan.Application", "src\AgroScan.Application\AgroScan.Application.csproj", "{FD6A3BA6-F996-4358-85B2-5E62064E0F0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgroScan.Application", "src\AgroScan.Application\AgroScan.Application.csproj", "{FD6A3BA6-F996-4358-85B2-5E62064E0F0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroScan.Core", "src\AgroScan.Core\AgroScan.Core.csproj", "{FC081AC6-D2D5-4854-BEBC-8809070D1C10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgroScan.Core", "src\AgroScan.Core\AgroScan.Core.csproj", "{FC081AC6-D2D5-4854-BEBC-8809070D1C10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroScan.Infrastructure", "src\AgroScan.Infrastructure\AgroScan.Infrastructure.csproj", "{9B69A197-09F2-42D7-AE83-DF34122493DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgroScan.Infrastructure", "src\AgroScan.Infrastructure\AgroScan.Infrastructure.csproj", "{9B69A197-09F2-42D7-AE83-DF34122493DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2790AD54-D689-46CB-B395-4CD2E9A2403A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroScan.UnitTests", "tests\AgroScan.UnitTests\AgroScan.UnitTests.csproj", "{FD3580B9-9743-44EA-8257-FDA273245710}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgroScan.UnitTests", "tests\AgroScan.UnitTests\AgroScan.UnitTests.csproj", "{FD3580B9-9743-44EA-8257-FDA273245710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgroScan.IntegrationTests", "tests\AgroScan.IntegrationTests\AgroScan.IntegrationTests.csproj", "{86EBC56F-4C05-4D86-9B4E-34AE865A9563}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgroScan.IntegrationTests", "tests\AgroScan.IntegrationTests\AgroScan.IntegrationTests.csproj", "{86EBC56F-4C05-4D86-9B4E-34AE865A9563}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ontology", "ontology", "{9C729D69-5038-4728-988F-9AB75558D805}"
+	ProjectSection(SolutionItems) = preProject
+		ontology\AgroScan.ttl = ontology\AgroScan.ttl
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

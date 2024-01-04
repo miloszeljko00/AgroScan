@@ -35,7 +35,7 @@ public static class DependencyInjection
         services.AddSingleton<IGraph>(provider =>
         {
             IGraph graph = new Graph();
-            string ontologyFilePath = System.IO.Path.Combine(AppContext.BaseDirectory, "Ontology", "agroscan.ttl");
+            string ontologyFilePath = configuration["OntologyFilePath"] ?? "";
             FileLoader.Load(graph, ontologyFilePath, new TurtleParser());
             return graph;
         });

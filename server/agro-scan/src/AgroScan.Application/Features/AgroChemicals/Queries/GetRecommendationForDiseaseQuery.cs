@@ -10,7 +10,7 @@ using VDS.RDF;
 using VDS.RDF.Parsing;
 
 namespace AgroScan.Application.Features.AgroChemicals.Queries;
-public class GetRecommendationForDiseaseQuery: IRequest<IReadOnlyCollection<AgroChemical>>
+public class GetRecommendationForDiseaseQuery : IRequest<IReadOnlyCollection<AgroChemical>>
 {
     public string DiseaseName { get; set; }
 }
@@ -46,37 +46,33 @@ public class GetRecommendationForDiseaseQueryHandler(IApplicationDbContext conte
 
     private static string BuildQuery(string diseaseName)
     {
-        return @"
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX agro: <http://agroscan.com/ontology/>
+        return $@"
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX agro: <http://agroscan.com/ontology/>
 
-SELECT ?agroChemicalName ?manufacturerName ?representativeName
-WHERE {
-    ?agroChemical rdf:type agro:AgroChemical ;
-                agro:contains ?activeMaterial ;
+        SELECT ?agroChemicalName ?manufacturerName ?representativeName
+        WHERE {{
+            ?agroChemical rdf:type agro:AgroChemical ;
+                agro:contains ?agroChemicalActiveMaterial ;
                 agro:belongsToAgroChemicalType ?agroChemicalType .
 
-    ?agroChemicalType rdf:type agro:AgroChemicalType ;
-                    agro:prevents ?diseaseType .
+            ?agroChemicalType rdf:type agro:AgroChemicalType ;
+                agro:prevents ?diseaseType .
 
-    ?agroChemical agro:agroChemicalName ?agroChemicalName ;
+            ?agroChemical agro:agroChemicalName ?agroChemicalName ;
                 agro:agroChemicalManufacturer ?manufacturerName ;
                 agro:agroChemicalRepresentative ?representativeName .
 
-    # Subquery to get ActiveMaterials that cure a specific disease and their disease types
-    {
-    SELECT ?activeMaterial ?disease ?diseaseType
-    WHERE {
-        ?activeMaterial rdf:type agro:ActiveMaterial ;
-                        agro:cures ?disease .
+	        ?agroChemicalActiveMaterial rdf:type agro:AgroChemicalActiveMaterial ;
+                agro:isActiveMaterial ?activeMaterial .
 
-        ?disease rdf:type agro:Disease ;
-                agro:diseaseName """ + diseaseName + @""" ;
+            ?activeMaterial rdf:type agro:ActiveMaterial ;
+                agro:cures ?disease .
+
+            ?disease rdf:type agro:Disease ;
+                agro:diseaseName ""{diseaseName}"" ;
                 agro:belongsToDiseaseType ?diseaseType .
-        }
-    }
-}
-        ";
+        }}";
     }
 
 }

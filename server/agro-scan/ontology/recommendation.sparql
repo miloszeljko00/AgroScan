@@ -1,0 +1,64 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX agro: <http://agroscan.com/ontology/>
+
+SELECT ?agroChemicalName ?manufacturerName ?representativeName
+WHERE {
+    ?agroChemical rdf:type agro:AgroChemical ;
+        agro:contains ?agroChemicalActiveMaterial ;
+        agro:belongsToAgroChemicalType ?agroChemicalType .
+
+    ?agroChemicalType rdf:type agro:AgroChemicalType ;
+        agro:prevents ?diseaseType .
+
+    ?agroChemical agro:agroChemicalName ?agroChemicalName ;
+        agro:agroChemicalManufacturer ?manufacturerName ;
+        agro:agroChemicalRepresentative ?representativeName .
+
+	?agroChemicalActiveMaterial rdf:type agro:AgroChemicalActiveMaterial ;
+        agro:isActiveMaterial ?activeMaterial .
+
+    ?activeMaterial rdf:type agro:ActiveMaterial ;
+        agro:cures ?disease .
+
+    ?disease rdf:type agro:Disease ;
+        agro:diseaseName "Bacterial Spot" ;
+        agro:belongsToDiseaseType ?diseaseType .
+}
+
+
+#
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX agro: <http://agroscan.com/ontology/>
+
+SELECT ?agroChemicalName ?manufacturerName ?representativeName
+WHERE {
+    ?agroChemical rdf:type agro:AgroChemical ;
+        agro:contains ?agroChemicalActiveMaterial ;
+        agro:belongsToAgroChemicalType ?agroChemicalType .
+
+    ?agroChemicalType rdf:type agro:AgroChemicalType ;
+        agro:prevents ?diseaseType .
+
+    ?agroChemical agro:agroChemicalName ?agroChemicalName ;
+        agro:agroChemicalManufacturer ?manufacturerName ;
+        agro:agroChemicalRepresentative ?representativeName .
+		{
+			SELECT ?agroChemicalActiveMaterial ?disease ?diseaseType
+			WHERE {
+                    ?agroChemicalActiveMaterial rdf:type agro:AgroChemicalActiveMaterial ;
+                        agro:isActiveMaterial ?activeMaterial .
+                    {
+                        SELECT ?activeMaterial ?disease ?diseaseType
+                        WHERE {
+                                ?activeMaterial rdf:type agro:ActiveMaterial ;
+                                    agro:cures ?disease .
+
+                                ?disease rdf:type agro:Disease ;
+                                    agro:diseaseName "Bacterial Spot" ;
+                                    agro:belongsToDiseaseType ?diseaseType .
+                        }
+                    }
+			}
+		}    
+}
