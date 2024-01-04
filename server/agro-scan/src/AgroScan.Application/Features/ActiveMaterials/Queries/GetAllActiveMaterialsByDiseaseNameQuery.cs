@@ -22,7 +22,13 @@ public class GetAllDiseasesByPlantNameQueryHandler(IOntologyService ontologyServ
         foreach (var result in results)
         {
             string? activeMaterialName = _ontologyService.GetValue(result["activeMaterialName"]) ?? "";
-            activeMaterials.Add(new ActiveMaterial() { Name = activeMaterialName });
+            string activeMaterialUri = result["activeMaterial"].ToString();
+            
+            activeMaterials.Add(new ActiveMaterial() 
+            {
+                Uri = activeMaterialUri,
+                Name = activeMaterialName 
+            });
         }
         return activeMaterials;
     }
@@ -33,7 +39,7 @@ public class GetAllDiseasesByPlantNameQueryHandler(IOntologyService ontologyServ
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX agro: <http://agroscan.com/ontology/>
 
-        SELECT ?activeMaterialName
+        SELECT ?activeMaterial ?activeMaterialName
         WHERE {{
           ?activeMaterial rdf:type agro:ActiveMaterial ;
                           agro:cures ?disease .

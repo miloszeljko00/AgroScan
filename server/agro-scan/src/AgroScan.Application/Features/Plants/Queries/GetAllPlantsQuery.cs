@@ -21,7 +21,12 @@ public class GetAllPlantsQueryHandler(IOntologyService ontologyService) : IReque
         foreach (var result in results)
         {
             string? plantName = _ontologyService.GetValue(result["plantName"]) ?? "";
-            plants.Add(new Plant() { Name = plantName });
+            string plantUri = result["plant"].ToString();
+            plants.Add(new Plant() 
+            { 
+                Uri = plantUri,
+                Name = plantName
+            });
         }
         return plants;
     }
@@ -32,7 +37,7 @@ public class GetAllPlantsQueryHandler(IOntologyService ontologyService) : IReque
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX agro: <http://agroscan.com/ontology/>
 
-        SELECT ?plantName
+        SELECT ?plant ?plantName
         WHERE {{
           ?plant rdf:type agro:Plant ;
                    agro:plantName ?plantName .

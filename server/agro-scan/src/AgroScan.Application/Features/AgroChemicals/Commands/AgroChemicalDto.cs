@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace AgroScan.Application.Features.AgroChemicals.Commands;
 public class AgroChemicalDto
 {
+    public string Uri { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
     public List<ActiveMaterialDto> ActiveMaterials { get; set; } = [];

@@ -1,5 +1,6 @@
 ﻿using AgroScan.Application.Common.Interfaces;
 using AgroScan.Application.Common.Models;
+using AgroScan.Core.Entities;
 using OfficeOpenXml;
 using System.IO;
 
@@ -87,6 +88,7 @@ public class ParseFromExcelCommandHandler(IOntologyService ontologyService) : IR
 
             agroChemicals.Add(new AgroChemicalDto()
             {
+                Uri = new Uri($"http://agroscan.com/ontology/{name}").ToString(),
                 Name = name,
                 Type = type,
                 ActiveMaterials = activeMaterials,

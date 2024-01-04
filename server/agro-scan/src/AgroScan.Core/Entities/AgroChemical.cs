@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace AgroScan.Core.Entities;
 public class AgroChemical
 {
+    public string Uri { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string Manufacturer { get; set; } = string.Empty;
     public string Representative { get; set; } = string.Empty;

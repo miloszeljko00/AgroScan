@@ -12,12 +12,11 @@ using VDS.RDF.Parsing;
 namespace AgroScan.Application.Features.AgroChemicals.Queries;
 public class GetRecommendationForDiseaseQuery : IRequest<IReadOnlyCollection<AgroChemical>>
 {
-    public string DiseaseName { get; set; }
+    public string DiseaseName { get; set; } = string.Empty;
 }
 
-public class GetRecommendationForDiseaseQueryHandler(IApplicationDbContext context, IOntologyService ontologyService) : IRequestHandler<GetRecommendationForDiseaseQuery, IReadOnlyCollection<AgroChemical>>
+public class GetRecommendationForDiseaseQueryHandler(IOntologyService ontologyService) : IRequestHandler<GetRecommendationForDiseaseQuery, IReadOnlyCollection<AgroChemical>>
 {
-    private readonly IApplicationDbContext _context = context;
     private readonly IOntologyService _ontologyService = ontologyService;
 
     public async Task<IReadOnlyCollection<AgroChemical>> Handle(GetRecommendationForDiseaseQuery request, CancellationToken cancellationToken)
@@ -30,12 +29,14 @@ public class GetRecommendationForDiseaseQueryHandler(IApplicationDbContext conte
 
         foreach (var result in results)
         {
+            string? agroChemicalUri = result["agroChemical"].ToString();
             string? agroChemicalName = _ontologyService.GetValue(result["agroChemicalName"]);
             string? manufacturerName = _ontologyService.GetValue(result["manufacturerName"]);
             string? representativeName = _ontologyService.GetValue(result["representativeName"]);
 
             agroChemicals.Add(new AgroChemical()
             {
+                Uri = agroChemicalUri,
                 Name = agroChemicalName ?? "",
                 Manufacturer = manufacturerName ?? "",
                 Representative = representativeName ?? ""
@@ -50,7 +51,7 @@ public class GetRecommendationForDiseaseQueryHandler(IApplicationDbContext conte
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX agro: <http://agroscan.com/ontology/>
 
-        SELECT ?agroChemicalName ?manufacturerName ?representativeName
+        SELECT ?agroChemical ?agroChemicalName ?manufacturerName ?representativeName
         WHERE {{
             ?agroChemical rdf:type agro:AgroChemical ;
                 agro:contains ?agroChemicalActiveMaterial ;

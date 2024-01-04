@@ -32,15 +32,15 @@ internal class OntologyService(ISparqlQueryProcessor sparqlQueryProcessor, IGrap
 
         return null;
     }
-    public bool RevokeActiveMaterialAsCureForDisease(ActiveMaterialDto activeMaterial, string diseaseName)
+    public bool RevokeActiveMaterialAsCureForDisease(string activeMaterialUri, string diseaseUri)
     {
         try
         {
-            var activeMaterialUri = _graph.CreateUriNode(new Uri($"http://agroscan.com/ontology/{activeMaterial.Name}"));
-            var curesUri = _graph.CreateUriNode(new Uri("http://agroscan.com/ontology/cures"));
-            var diseaseUri = _graph.CreateUriNode(new Uri($"http://agroscan.com/ontology/{diseaseName}"));
+            var activeMaterialNode = _graph.CreateUriNode(new Uri(activeMaterialUri));
+            var curesNode = _graph.CreateUriNode(new Uri("http://agroscan.com/ontology/cures"));
+            var diseaseNode = _graph.CreateUriNode(new Uri(diseaseUri));
 
-            _graph.Retract(new Triple(activeMaterialUri, curesUri, diseaseUri));
+            _graph.Retract(new Triple(activeMaterialNode, curesNode, diseaseNode));
 
             SaveOntology();
 
@@ -53,15 +53,15 @@ internal class OntologyService(ISparqlQueryProcessor sparqlQueryProcessor, IGrap
             return false;
         }
     }
-    public bool SetActiveMaterialAsCureForDisease(ActiveMaterialDto activeMaterial, string diseaseName)
+    public bool SetActiveMaterialAsCureForDisease(string activeMaterialUri, string diseaseUri)
     {
         try
         {
-            var activeMaterialUri = _graph.CreateUriNode(new Uri($"http://agroscan.com/ontology/{activeMaterial.Name}"));
-            var curesUri = _graph.CreateUriNode(new Uri("http://agroscan.com/ontology/cures"));
-            var diseaseUri = _graph.CreateUriNode(new Uri($"http://agroscan.com/ontology/{diseaseName}"));
+            var activeMaterialNode = _graph.CreateUriNode(new Uri(activeMaterialUri));
+            var curesNode = _graph.CreateUriNode(new Uri("http://agroscan.com/ontology/cures"));
+            var diseaseNode = _graph.CreateUriNode(new Uri(diseaseUri));
 
-            _graph.Assert(new Triple(activeMaterialUri, curesUri, diseaseUri));
+            _graph.Assert(new Triple(activeMaterialNode, curesNode, diseaseNode));
 
             SaveOntology();
 
@@ -99,7 +99,7 @@ internal class OntologyService(ISparqlQueryProcessor sparqlQueryProcessor, IGrap
     {
         var rdfTypeUri = _graph.CreateUriNode(new Uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
         var owlNamedIndividualUri = _graph.CreateUriNode(new Uri("http://www.w3.org/2002/07/owl#NamedIndividual"));
-        var agroChemicalUri = _graph.CreateUriNode(new Uri($"http://agroscan.com/ontology/{agroChemical.Name}"));
+        var agroChemicalUri = _graph.CreateUriNode(new Uri(agroChemical.Uri));
 
         // Add triples for AgroChemical individual
         _graph.Assert(new Triple(agroChemicalUri, rdfTypeUri, owlNamedIndividualUri));
