@@ -7,12 +7,12 @@ public static class AgroChemicals
 {
     public static void MapAgroChemicals(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/v1/agrochemicals/get-recommendation-for-disease/{diseaseName}", GetRecommendationForDisease);
+        app.MapPost("/api/v1/agrochemicals/get-recommendation", GetRecommendationForDisease);
         app.MapPost("/api/v1/agrochemicals/parse-from-excel", ParseFromExcel).DisableAntiforgery();
     }
-    private static async Task<IResult> GetRecommendationForDisease(ISender sender, string diseaseName)
+    private static async Task<IResult> GetRecommendationForDisease(ISender sender, [FromBody] GetRecommendationForDiseaseDto request)
     {
-        var result = await sender.Send(new GetRecommendationForDiseaseQuery() { DiseaseName=diseaseName });
+        var result = await sender.Send(new GetRecommendationForDiseaseQuery() { DiseaseUri = request.DiseaseUri });
         return Results.Ok(result);
     }
     private static async Task<IResult> ParseFromExcel(ISender sender, [FromForm] IFormFile excelFile)

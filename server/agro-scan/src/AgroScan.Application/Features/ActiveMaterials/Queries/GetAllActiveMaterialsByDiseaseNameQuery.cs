@@ -2,19 +2,19 @@
 using AgroScan.Core.Entities;
 
 namespace AgroScan.Application.Features.ActiveMaterials.Queries;
-public class GetAllActiveMaterialsByDiseaseNameQueryRequest : IRequest<IReadOnlyCollection<ActiveMaterial>>
+public class GetAllActiveMaterialsThatCuresDiseaseQueryRequest : IRequest<IReadOnlyCollection<ActiveMaterial>>
 {
-    public string DiseaseName { get; set; } = string.Empty;
+    public string DiseaseUri { get; set; } = string.Empty;
 }
 
-public class GetAllDiseasesByPlantNameQueryHandler(IOntologyService ontologyService) : IRequestHandler<GetAllActiveMaterialsByDiseaseNameQueryRequest, IReadOnlyCollection<ActiveMaterial>>
+public class GetAllActiveMaterialsThatCuresDiseaseQueryHandler(IOntologyService ontologyService) : IRequestHandler<GetAllActiveMaterialsThatCuresDiseaseQueryRequest, IReadOnlyCollection<ActiveMaterial>>
 {
     private readonly IOntologyService _ontologyService = ontologyService;
 
-    public async Task<IReadOnlyCollection<ActiveMaterial>> Handle(GetAllActiveMaterialsByDiseaseNameQueryRequest request, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<ActiveMaterial>> Handle(GetAllActiveMaterialsThatCuresDiseaseQueryRequest request, CancellationToken cancellationToken)
     {
         var activeMaterials = new List<ActiveMaterial>();
-        string sparqlQuery = BuildQuery(request.DiseaseName);
+        string sparqlQuery = BuildQuery(request.DiseaseUri);
         var results = _ontologyService.ExecuteSparqlQuery(sparqlQuery);
 
         if (results is null) return activeMaterials;
@@ -33,7 +33,7 @@ public class GetAllDiseasesByPlantNameQueryHandler(IOntologyService ontologyServ
         return activeMaterials;
     }
 
-    private static string BuildQuery(string diseaseName)
+    private static string BuildQuery(string diseaseUri)
     {
         return $@"
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -41,15 +41,15 @@ public class GetAllDiseasesByPlantNameQueryHandler(IOntologyService ontologyServ
 
         SELECT ?activeMaterial ?activeMaterialName
         WHERE {{
-          ?activeMaterial rdf:type agro:ActiveMaterial ;
-                          agro:cures ?disease .
+            ?activeMaterial rdf:type agro:ActiveMaterial ;
+                            agro:cures <{diseaseUri}> .
 
-          ?disease rdf:type agro:Disease ;
-                  agro:diseaseName ""{diseaseName}"" .
-      
-          ?activeMaterial agro:activeMaterialName ?activeMaterialName .
+            <{diseaseUri}> rdf:type agro:Disease .
+
+            ?activeMaterial agro:activeMaterialName ?activeMaterialName .
         }}";
     }
+
 
 
 

@@ -12,7 +12,7 @@ using VDS.RDF.Parsing;
 namespace AgroScan.Application.Features.AgroChemicals.Queries;
 public class GetRecommendationForDiseaseQuery : IRequest<IReadOnlyCollection<AgroChemical>>
 {
-    public string DiseaseName { get; set; } = string.Empty;
+    public string DiseaseUri { get; set; } = string.Empty;
 }
 
 public class GetRecommendationForDiseaseQueryHandler(IOntologyService ontologyService) : IRequestHandler<GetRecommendationForDiseaseQuery, IReadOnlyCollection<AgroChemical>>
@@ -22,7 +22,7 @@ public class GetRecommendationForDiseaseQueryHandler(IOntologyService ontologySe
     public async Task<IReadOnlyCollection<AgroChemical>> Handle(GetRecommendationForDiseaseQuery request, CancellationToken cancellationToken)
     {
         var agroChemicals = new List<AgroChemical>();
-        string sparqlQuery = BuildQuery(request.DiseaseName);
+        string sparqlQuery = BuildQuery(request.DiseaseUri);
         var results = _ontologyService.ExecuteSparqlQuery(sparqlQuery);
 
         if (results is null) return agroChemicals;
@@ -45,7 +45,7 @@ public class GetRecommendationForDiseaseQueryHandler(IOntologyService ontologySe
         return agroChemicals;
     }
 
-    private static string BuildQuery(string diseaseName)
+    private static string BuildQuery(string diseaseUri)
     {
         return $@"
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -64,16 +64,16 @@ public class GetRecommendationForDiseaseQueryHandler(IOntologyService ontologySe
                 agro:agroChemicalManufacturer ?manufacturerName ;
                 agro:agroChemicalRepresentative ?representativeName .
 
-	        ?agroChemicalActiveMaterial rdf:type agro:AgroChemicalActiveMaterial ;
+            ?agroChemicalActiveMaterial rdf:type agro:AgroChemicalActiveMaterial ;
                 agro:isActiveMaterial ?activeMaterial .
 
             ?activeMaterial rdf:type agro:ActiveMaterial ;
-                agro:cures ?disease .
+                agro:cures <{diseaseUri}> .
 
-            ?disease rdf:type agro:Disease ;
-                agro:diseaseName ""{diseaseName}"" ;
+            <{diseaseUri}> rdf:type agro:Disease ;
                 agro:belongsToDiseaseType ?diseaseType .
         }}";
     }
+
 
 }

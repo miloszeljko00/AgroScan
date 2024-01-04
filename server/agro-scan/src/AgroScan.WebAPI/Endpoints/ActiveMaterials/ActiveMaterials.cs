@@ -9,7 +9,7 @@ public static class ActiveMaterials
     public static void MapActiveMaterials(this IEndpointRouteBuilder app)
     {
         app.MapGet("/api/v1/active-materials", GetAllActiveMaterials);
-        app.MapGet("/api/v1/active-materials-by-disease-name", GetAllActiveMaterialsByDiseaseName);
+        app.MapPost("/api/v1/active-materials/cures", GetAllActiveMaterialsThatCuresDisease);
         app.MapPost("/api/v1/active-materials/set-cure", SetCure);
         app.MapPost("/api/v1/active-materials/revoke-cure", RevokeCure);
     }
@@ -18,9 +18,9 @@ public static class ActiveMaterials
         var result = await sender.Send(new GetAllActiveMaterialsQueryRequest());
         return Results.Ok(result);
     }
-    private static async Task<IResult> GetAllActiveMaterialsByDiseaseName(ISender sender, string diseaseName)
+    private static async Task<IResult> GetAllActiveMaterialsThatCuresDisease(ISender sender, [FromBody] GetAllActiveMaterialsThatCuresDiseaseDto request)
     {
-        var result = await sender.Send(new GetAllActiveMaterialsByDiseaseNameQueryRequest() { DiseaseName = diseaseName });
+        var result = await sender.Send(new GetAllActiveMaterialsThatCuresDiseaseQueryRequest() { DiseaseUri = request.diseaseUri });
         return Results.Ok(result);
     }
     private static async Task<IResult> SetCure(ISender sender, [FromBody] SetCureDto request)
