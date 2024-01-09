@@ -2,6 +2,9 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
+using AgroScan.Core.Constants;
+using AgroScan.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace AgroScan.Infrastructure.Data;
 
@@ -22,13 +25,18 @@ public static class InitialiserExtensions
 
 public class ApplicationDbContextInitialiser
 {
+
     private readonly ILogger<ApplicationDbContextInitialiser> _logger;
     private readonly ApplicationDbContext _context;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context)
+    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         _logger = logger;
         _context = context;
+        _userManager = userManager;
+        _roleManager = roleManager;
     }
 
     public async Task InitialiseAsync()
@@ -60,7 +68,42 @@ public class ApplicationDbContextInitialiser
     public async Task TrySeedAsync()
     {
         // Add data seeding if needed
+        // Default roles
+        var administratorRole = new IdentityRole(Roles.Administrator);
 
+        if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
+        {
+            await _roleManager.CreateAsync(administratorRole);
+        }
+
+        var userRole = new IdentityRole(Roles.User);
+
+        if (_roleManager.Roles.All(r => r.Name != userRole.Name))
+        {
+            await _roleManager.CreateAsync(userRole);
+        }
+
+        // Default users
+        var administrator = new ApplicationUser { UserName = "admin@email.com", Email = "admin@email.com", TwoFactorEnabled = false };
+
+        if (_userManager.Users.All(u => u.UserName != administrator.UserName))
+        {
+            await _userManager.CreateAsync(administrator, "Abc.123456");
+            if (!string.IsNullOrWhiteSpace(administratorRole.Name))
+            {
+                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
+            }
+        }
+        var user = new ApplicationUser { UserName = "user@email.com", Email = "user@email.com", TwoFactorEnabled = false };
+
+        if (_userManager.Users.All(u => u.UserName != user.UserName))
+        {
+            await _userManager.CreateAsync(user, "Abc.123456");
+            if (!string.IsNullOrWhiteSpace(userRole.Name))
+            {
+                await _userManager.AddToRolesAsync(user, new[] { userRole.Name });
+            }
+        }
         await _context.SaveChangesAsync();
     }
 }

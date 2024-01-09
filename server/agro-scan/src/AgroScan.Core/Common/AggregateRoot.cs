@@ -1,4 +1,4 @@
 ﻿namespace AgroScan.Core.Common;
-public class AggregateRoot<T>(T id) : Entity<T>(id)
+public class AggregateRoot(Guid id) : Entity(id)
 {
 }

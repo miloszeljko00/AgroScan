@@ -1,7 +1,11 @@
 ﻿using AgroScan.Application.Common.Interfaces;
+using AgroScan.Application.Common.Security;
+using AgroScan.Core.Constants;
 using AgroScan.Core.Entities;
 
 namespace AgroScan.Application.Features.Plants.Queries;
+
+[Authorize(Roles = Roles.User)]
 public class GetAllPlantsQueryRequest : IRequest<IReadOnlyCollection<Plant>>
 {
 }

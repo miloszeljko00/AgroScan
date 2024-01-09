@@ -6,6 +6,12 @@ using VDS.RDF.Parsing;
 using VDS.RDF.Query;
 using VDS.RDF;
 using AgroScan.Infrastructure.Ontology;
+using AgroScan.Infrastructure.Data.Interceptors;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using AgroScan.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
+using System.Data;
+using AgroScan.Core.Constants;
 
 namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyInjection
@@ -18,9 +24,10 @@ public static class DependencyInjection
         {
             throw new InvalidOperationException("DefaultConnection is null or empty.");
         }
-
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             options.UseNpgsql(connectionString, npgsqlOptions =>
             {
                 npgsqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
@@ -28,8 +35,24 @@ public static class DependencyInjection
         });
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<ApplicationDbContextInitialiser>();
-        services.AddSingleton(TimeProvider.System);
 
+        services.AddAuthentication()
+            .AddBearerToken(IdentityConstants.BearerScheme);
+
+        services.AddAuthorizationBuilder();
+
+        services
+            .AddIdentityCore<ApplicationUser>()
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddApiEndpoints();
+
+        services.AddSingleton(TimeProvider.System);
+        services.AddTransient<IIdentityService, IdentityService>();
+
+        // Policy-based authorization example
+        //services.AddAuthorization(options =>
+        //    options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
 
         // Add RDF services as needed
         services.AddSingleton<IGraph>(provider =>
@@ -59,4 +82,7 @@ public static class DependencyInjection
         services.AddScoped<IOntologyService, OntologyService>();
         return services;
     }
+
+
+
 }
