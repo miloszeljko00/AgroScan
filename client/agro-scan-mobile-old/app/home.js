@@ -9,11 +9,12 @@ import {
   ScreenHeaderBtn,
   Welcome,
 } from "../components";
+import {useAuth} from "../context/AuthContext";
 
 const Home = () => {
   const router = useRouter()
   const [searchTerm, setSearchTerm] = useState("");
-
+  const { onLogout } = useAuth();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
@@ -21,10 +22,10 @@ const Home = () => {
           headerStyle: { backgroundColor: COLORS.lightWhite },
           headerShadowVisible: false,
           headerLeft: () => (
-            <ScreenHeaderBtn iconUrl={icons.menu} dimension='60%' />
+            <ScreenHeaderBtn handlePress={()=>{router.replace('login')}} iconUrl={icons.menu} dimension='60%' />
           ),
           headerRight: () => (
-            <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
+            <ScreenHeaderBtn handlePress={()=> onLogout()} iconUrl={images.profile} dimension='100%' />
           ),
           headerTitle: "",
         }}
@@ -46,9 +47,6 @@ const Home = () => {
               }
             }}
           />
-
-          <Popularjobs />
-          <Nearbyjobs />
         </View>
       </ScrollView>
     </SafeAreaView>
