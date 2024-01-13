@@ -4,8 +4,9 @@ import { images } from "../constants";
 import {useAuth} from "../context/AuthContext";
 import Spinner from "react-native-loading-spinner-overlay";
 import Toast from "react-native-toast-message";
+import {COLORS} from "@constants";
 
-const Register = ({navigation}: any) => {
+const Register = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -14,8 +15,8 @@ const Register = ({navigation}: any) => {
     const [isLoading, setIsLoading] = useState(false)
     const { onLogin, onRegister } = useAuth();
 
-    const validateForm = (): {errors: string[]} => {
-        let errors: string[] = []
+    const validateForm = () => {
+        let errors = []
         if (email === '') errors.push('Please enter your email!')
         if (password === '') errors.push('Please enter desired password!')
         if (confirmPassword === '') errors.push('Please confirm desired password!')
@@ -34,7 +35,7 @@ const Register = ({navigation}: any) => {
             setIsLoading(false)
             return;
         } else {
-            const registerResponse = await onRegister!(email, password);
+            const registerResponse = await onRegister(email, password);
             if(registerResponse && registerResponse.error){
                 Toast.show({
                     type: 'error',
@@ -44,7 +45,7 @@ const Register = ({navigation}: any) => {
                 setIsLoading(false)
                 return;
             }
-            const loginResponse = await onLogin!(email, password);
+            const loginResponse = await onLogin(email, password);
             if(loginResponse && loginResponse.error){
                 Toast.show({
                     type: 'error',
@@ -81,7 +82,7 @@ const Register = ({navigation}: any) => {
                     placeholder="Confirm password"
                     secureTextEntry
                 />
-                <Button onPress={register} title="Register" />
+                <Button color={COLORS.primary} onPress={register} title="Register" />
                 <View style={styles.already_registered}>
                     <Text>Already have an account? </Text>
                     <TouchableOpacity onPress={() => { navigation.navigate('Login') }}>

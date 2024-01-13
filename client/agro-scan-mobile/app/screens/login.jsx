@@ -4,8 +4,8 @@ import { images } from "../constants";
 import {useAuth} from "../context/AuthContext";
 import Spinner from "react-native-loading-spinner-overlay";
 import Toast from "react-native-toast-message";
-
-const Login = ({navigation }: any) => {
+import {COLORS} from "@constants";
+const Login = ({navigation }) => {
     const [email, setEmail] = useState('miloszeljko00@gmail.com')
     const [password, setPassword] = useState('Abc.123456')
     const [isLoading, setIsLoading] = useState(false)
@@ -14,7 +14,7 @@ const Login = ({navigation }: any) => {
 
     const login = async () => {
         setIsLoading(true)
-        const response = await onLogin!(email, password);
+        const response = await onLogin(email, password);
         if(response && response.error){
             Toast.show({
                 type: 'error',
@@ -43,7 +43,7 @@ const Login = ({navigation }: any) => {
                     placeholder="Password"
                     secureTextEntry
                 />
-                <Button title="Login" onPress={login}/>
+                <Button color={COLORS.primary} title="Login" onPress={login}/>
                 <View style={styles.no_account}>
                     <Text>Don't have an account? </Text>
                     <TouchableOpacity onPress={() => { navigation.navigate('Register')}}>
