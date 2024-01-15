@@ -18,7 +18,7 @@ const Scan = ({scan, onClicked}) => {
                     <Image style={styles.image} source={{uri: `data:image/jpeg;base64,${scan.imageBase64}`}}></Image>
                 </View>
                 <View style={styles.info}>
-                    <View>
+                    <View style={{maxWidth: "90%"}}>
                         <Text>{scan.plantName} - {scan.diseaseName ? scan.diseaseName : 'Healthy'}</Text>
                         <Text>{format(scan.createdAt, "MMMM do, yyyy HH:mm")}</Text>
                     </View>

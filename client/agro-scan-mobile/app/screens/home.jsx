@@ -1,28 +1,39 @@
 import {View, Text, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native'
 import Welcome from "../components/home/welcome/Welcome";
 import ScanList from "../components/home/scan-list/scan-list";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {COLORS} from "@constants";
 import { fetchScans } from '../api/scans';
 import Toast from "react-native-toast-message";
 
 const Home = ({navigation}) => {
     const [scans, setScans] = useState([]);
-    useEffect(() => {
+    const fetchScansData = useCallback(() => {
         fetchScans()
-            .then(response => {
+            .then((response) => {
                 setScans(response.data);
             })
-            .catch(error => {
-                Toast.show(
-                    {
-                        type: 'error',
-                        text1: 'Error',
-                        text2: 'Could not fetch scans',
+            .catch((error) => {
+                Toast.show({
+                    type: "error",
+                    text1: "Error",
+                    text2: "Could not fetch scans",
                 });
             });
     }, []);
 
+    useEffect(() => {
+        fetchScansData();
+    }, [fetchScansData]);
+
+    useEffect(() => {
+        const unsubscribeFocus = navigation.addListener("focus", () => {
+            // Fetch scans when the screen comes into focus
+            fetchScansData();
+        });
+
+        return unsubscribeFocus;
+    }, [navigation, fetchScansData]);
     const openNewScanScreen = () => {
        navigation.push('NewScan')
     }

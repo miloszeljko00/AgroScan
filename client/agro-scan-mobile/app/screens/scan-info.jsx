@@ -50,7 +50,7 @@ const ScanInfo = ({navigation, route }) => {
                         <View>
                             <Image style={styles.image} source={{uri: `data:image/jpeg;base64,${scan.imageBase64}`}}></Image>
                         </View>
-                        <View style={{...styles.info, backgroundColor: scan.diseaseName ? COLORS.warning : COLORS.primary}}>
+                        <View style={{...styles.info, backgroundColor: scan.diseaseName ? COLORS.warning : COLORS.tertiary}}>
                             <View style={{alignItems: 'center', justifyContent: 'center'}}>
                                 <Text style={{fontSize: SIZES.medium, color: scan.diseaseName ? COLORS.secondary : COLORS.primary}}>{format(scan.createdAt, "MMMM do, yyyy HH:mm")}</Text>
                                 <Text style={{fontSize: SIZES.xxLarge, color: scan.diseaseName ? COLORS.secondary : COLORS.primary}}>{scan.diseaseName ? scan.diseaseName : 'Healthy'}</Text>
