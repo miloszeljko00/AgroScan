@@ -10,8 +10,6 @@ using AgroScan.Infrastructure.Data.Interceptors;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using AgroScan.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
-using System.Data;
-using AgroScan.Core.Constants;
 
 namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyInjection

@@ -2,7 +2,7 @@ import Toast from "react-native-toast-message";
 import {AuthProvider, useAuth} from "./app/context/AuthContext";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import {NavigationContainer} from "@react-navigation/native";
+import {NavigationContainer, useNavigation} from "@react-navigation/native";
 import Login from "./app/screens/login";
 import Home from "./app/screens/home";
 import {Button} from "react-native";
@@ -10,6 +10,7 @@ import Register from "./app/screens/register";
 import {useFonts} from "expo-font";
 import {COLORS} from "@constants";
 import NewScan from "./app/screens/new-scan";
+import ScanInfo from "./app/screens/scan-info";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,13 +35,8 @@ export default function App() {
     );
 }
 
-export const Layout = ({navigation}) => {
+export const Layout = () => {
     const { authState, onLogout } = useAuth();
-
-    const goBack = () => {
-        navigation.goBack();
-    }
-
     return (
         <NavigationContainer>
             <Stack.Navigator>
@@ -52,6 +48,9 @@ export const Layout = ({navigation}) => {
                                 headerRight: () => <Button color={COLORS.primary} onPress={onLogout} title="Sign Out"/>
                             }}/>
                             <Stack.Screen name="NewScan" component={NewScan} options={{
+                                title: 'AgroScan'
+                            }}/>
+                            <Stack.Screen name="ScanInfo" component={ScanInfo} options={{
                                 title: 'AgroScan'
                             }}/>
                         </>

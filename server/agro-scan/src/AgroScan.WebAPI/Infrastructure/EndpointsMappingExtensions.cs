@@ -2,6 +2,7 @@
 using AgroScan.WebAPI.Endpoints.AgroChemicals;
 using AgroScan.WebAPI.Endpoints.Diseases;
 using AgroScan.WebAPI.Endpoints.Plants;
+using AgroScan.WebAPI.Endpoints.Scans;
 using AgroScan.WebAPI.Endpoints.Users;
 
 namespace AgroScan.WebAPI.Infrastructure;
@@ -15,6 +16,7 @@ public static class EndpointsMappingExtensions
         app.MapDiseases();
         app.MapPlants();
         app.MapActiveMaterials();
+        app.MapScans();
 
         return app;
     }

@@ -8,8 +8,10 @@ import { shareAsync } from 'expo-sharing';
 import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
+import { createScan } from "../api/scans";
+import {AxiosError} from "axios";
 
-const NewScan = () => {
+const NewScan = ({navigation}) => {
     const [scan, setScans] = useState({
         id: "",
         plant: "Tomato",
@@ -18,24 +20,34 @@ const NewScan = () => {
         image: "",
     },);
     let cameraRef = useRef();
-    const [hasCameraPermission, setHasCameraPermission] = useState();
-    const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
+    const [hasCameraPermission, setHasCameraPermission] = useState(false);
+    const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState(false);
     const [photo, setPhoto] = useState();
     const [flashMode, setFlashMode] = useState(false);
 
     useEffect(() => {
         (async () => {
-            const cameraPermission = await Camera.requestCameraPermissionsAsync();
-            const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
-            setHasCameraPermission(cameraPermission.status === "granted");
-            setHasMediaLibraryPermission(mediaLibraryPermission.status === "granted");
+            try {
+                const cameraPermission = await Camera.requestCameraPermissionsAsync();
+                const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
+                if (cameraPermission && cameraPermission.status === "granted") {
+                    setHasCameraPermission(true);
+                } else {
+                    setHasCameraPermission(false);
+                }
+                if (mediaLibraryPermission && mediaLibraryPermission.status === "granted") {
+                    setHasMediaLibraryPermission(true);
+                } else {
+                    setHasMediaLibraryPermission(false);
+                }
+            } catch (error) {
+                console.error("Error requesting permissions:", error);
+            }
         })();
     }, []);
 
 
-    if (hasCameraPermission === undefined) {
-        return <Text>Requesting permissions...</Text>
-    } else if (!hasCameraPermission) {
+    if (!hasCameraPermission) {
         return <Text>Permission for camera not granted. Please change this in settings.</Text>
     }
     let openGallery = async () => {
@@ -48,10 +60,10 @@ const NewScan = () => {
                 base64: true,
             });
 
-            if (!result.cancelled) {
+            if (!result.canceled) {
                 const resizedImage = await ImageManipulator.manipulateAsync(
                     result.assets[0].uri,
-                    [{ resize: { width: 256, height: 256 } }],
+                    [],
                     { base64: true }
                 );
                 setPhoto(resizedImage);
@@ -73,7 +85,6 @@ const NewScan = () => {
         };
         cameraRef.current.takePictureAsync(options).then((newPhoto)=>{
             setPhoto(newPhoto);
-
         });
     };
 
@@ -82,8 +93,23 @@ const NewScan = () => {
             setPhoto(undefined);
         };
 
-        let confirm = () => {
-            // TODO napravi predikciju i sacuvaj u bazu
+        let confirm = async () => {
+            try {
+                if (photo.base64) {
+                    const resizedImage = await ImageManipulator.manipulateAsync(
+                        `data:image/jpg;base64,${photo.base64}`,
+                        [{ resize: { width: 256, height: 256 } }],
+                        { base64: true }
+                    );
+                    createScan(resizedImage.base64).then((response) => {
+                        navigation.navigate('Home');
+                    }).catch((error) => {
+                        console.error(error);
+                    });
+                }
+            } catch (error) {
+                console.error('Error saving photo:', error);
+            }
         };
 
         return (

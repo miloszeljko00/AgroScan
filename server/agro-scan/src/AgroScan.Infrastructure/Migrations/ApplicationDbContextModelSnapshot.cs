@@ -22,6 +22,41 @@ namespace AgroScan.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("AgroScan.Core.Entities.Scan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DiseaseName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("DiseaseUri")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageBase64")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PlantName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PlantUri")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Scans");
+                });
+
             modelBuilder.Entity("AgroScan.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")

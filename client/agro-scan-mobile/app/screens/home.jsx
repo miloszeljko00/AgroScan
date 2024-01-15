@@ -1,84 +1,33 @@
 import {View, Text, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native'
 import Welcome from "../components/home/welcome/Welcome";
 import ScanList from "../components/home/scan-list/scan-list";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {COLORS} from "@constants";
+import { fetchScans } from '../api/scans';
+import Toast from "react-native-toast-message";
+
 const Home = ({navigation}) => {
-    const [scans, setScans] = useState([
-        {
-            id: "1",
-            plant: "Tomato",
-            label: "Bacterial Spot",
-            date: new Date("2023-09-01T15:43:00"),
-            image: "https://www.shutterstock.com/image-photo/tomato-leaves-isolated-on-white-260nw-1251320371.jpg",
-        },
-        {
-            id: "2",
-            plant: "Tomato",
-            label: "Bacterial Spot",
-            date: new Date("2021-09-01T10:43:00"),
-            image: "https://www.shutterstock.com/image-photo/tomato-leaves-isolated-on-white-260nw-1251320371.jpg",
-        },
-        {
-            id: "3",
-            plant: "Tomato",
-            label: "Bacterial Spot",
-            date: new Date("2021-09-01T10:43:00"),
-            image: "https://www.shutterstock.com/image-photo/tomato-leaves-isolated-on-white-260nw-1251320371.jpg",
-        },
-        {
-            id: "4",
-            plant: "Tomato",
-            label: "Bacterial Spot",
-            date: new Date("2021-09-01T10:43:00"),
-            image: "https://www.shutterstock.com/image-photo/tomato-leaves-isolated-on-white-260nw-1251320371.jpg",
-        },
-        {
-            id: "5",
-            plant: "Tomato",
-            label: "Bacterial Spot",
-            date: new Date("2021-09-01T10:43:00"),
-            image: "https://www.shutterstock.com/image-photo/tomato-leaves-isolated-on-white-260nw-1251320371.jpg",
-        },
-        {
-            id: "6",
-            plant: "Tomato",
-            label: "Bacterial Spot",
-            date: new Date("2021-09-01T10:43:00"),
-            image: "https://www.shutterstock.com/image-photo/tomato-leaves-isolated-on-white-260nw-1251320371.jpg",
-        },
-        {
-            id: "7",
-            plant: "Tomato",
-            label: "Bacterial Spot",
-            date: new Date("2021-09-01T10:43:00"),
-            image: "https://www.shutterstock.com/image-photo/tomato-leaves-isolated-on-white-260nw-1251320371.jpg",
-        },
-        {
-            id: "8",
-            plant: "Tomato",
-            label: "Bacterial Spot",
-            date: new Date("2021-09-01T10:43:00"),
-            image: "https://www.shutterstock.com/image-photo/tomato-leaves-isolated-on-white-260nw-1251320371.jpg",
-        },
-        {
-            id: "9",
-            plant: "Tomato",
-            label: "Bacterial Spot",
-            date: new Date("2021-09-01T10:43:00"),
-            image: "https://www.shutterstock.com/image-photo/tomato-leaves-isolated-on-white-260nw-1251320371.jpg",
-        },
-        {
-            id: "10",
-            plant: "Tomato",
-            label: "Bacterial Spot",
-            date: new Date("2021-09-01T10:43:00"),
-            image: "https://www.shutterstock.com/image-photo/tomato-leaves-isolated-on-white-260nw-1251320371.jpg",
-        }
-    ]);
+    const [scans, setScans] = useState([]);
+    useEffect(() => {
+        fetchScans()
+            .then(response => {
+                setScans(response.data);
+            })
+            .catch(error => {
+                Toast.show(
+                    {
+                        type: 'error',
+                        text1: 'Error',
+                        text2: 'Could not fetch scans',
+                });
+            });
+    }, []);
 
     const openNewScanScreen = () => {
        navigation.push('NewScan')
+    }
+    let onScanSelected = (scan) => {
+        navigation.push('ScanInfo', {data: scan})
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -86,7 +35,7 @@ const Home = ({navigation}) => {
                 <Welcome></Welcome>
             </View>
             <View style={styles.scanList}>
-                <ScanList scans={scans}></ScanList>
+                <ScanList onSelected={onScanSelected} scans={scans}></ScanList>
             </View>
             <TouchableOpacity onPress={openNewScanScreen} style={styles.newScan}>
                 <Text style={styles.newScanText}>New Scan</Text>

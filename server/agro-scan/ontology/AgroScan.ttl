@@ -15548,6 +15548,7 @@ Israel""";
                                                 a owl:NamedIndividual,
                                                   <http://agroscan.com/ontology/AgroChemicalActiveMaterial>.
 <http://agroscan.com/ontology/abamektin> <http://agroscan.com/ontology/activeMaterialName> "abamektin";
+                                         <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/spider_mites_two-spotted_spider_mite>;
                                          a owl:NamedIndividual,
                                            <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/acaricide> <http://agroscan.com/ontology/agroChemicalTypeName> "Acaride";
@@ -15618,6 +15619,9 @@ fosfid""";
                                              <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/azoksistrobin> <http://agroscan.com/ontology/activeMaterialName> "azoksistrobin",
                                                                                                "azoksistrobin ";
+                                             <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/early_blight>,
+                                                                                  <http://agroscan.com/ontology/late_blight>,
+                                                                                  <http://agroscan.com/ontology/septoria_leaf_spot>;
                                              a owl:NamedIndividual,
                                                <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/bacterial_spot> <http://agroscan.com/ontology/belongsToDiseaseType> <http://agroscan.com/ontology/fungal>;
@@ -15630,6 +15634,7 @@ fosfid""";
                                                               a owl:NamedIndividual,
                                                                 <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/bakar%20iz%20bakar%20oksihlorida> <http://agroscan.com/ontology/activeMaterialName> "bakar iz bakar oksihlorida";
+                                                                <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/target_spot>;
                                                                 a owl:NamedIndividual,
                                                                   <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/bakar%20iz%20bakar%20sulfata%20trobaznоg> <http://agroscan.com/ontology/activeMaterialName> "bakar iz bakar sulfata trobaznоg ";
@@ -15639,6 +15644,7 @@ fosfid""";
                                                                         a owl:NamedIndividual,
                                                                           <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/bakar%20iz%20bakar-%20hidroksida> <http://agroscan.com/ontology/activeMaterialName> "bakar iz bakar- hidroksida";
+                                                                <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/bacterial_spot>;
                                                                 a owl:NamedIndividual,
                                                                   <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/bakar%20iz%20bakar-hidroksida> <http://agroscan.com/ontology/activeMaterialName> "bakar iz bakar-hidroksida",
@@ -15688,6 +15694,7 @@ fosfid""";
                                                 a owl:NamedIndividual,
                                                   <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/benzovindiflupir> <http://agroscan.com/ontology/activeMaterialName> "benzovindiflupir";
+                                                <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/leaf_mold>;
                                                 a owl:NamedIndividual,
                                                   <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/bifenazat> <http://agroscan.com/ontology/activeMaterialName> "bifenazat";
@@ -15761,7 +15768,6 @@ fosfid""";
                                           a owl:NamedIndividual,
                                             <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/ciram> <http://agroscan.com/ontology/activeMaterialName> "ciram";
-                                     <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/bacterial_spot>;
                                      a owl:NamedIndividual,
                                        <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/contains> a owl:ObjectProperty;
@@ -15784,6 +15790,7 @@ fosfid""";
                                              <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/difenokonazol> <http://agroscan.com/ontology/activeMaterialName> "difenokonazol",
                                                                                                "difenokonazol ";
+                                             <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/leaf_mold>;
                                              a owl:NamedIndividual,
                                                <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/diflufenikan> <http://agroscan.com/ontology/activeMaterialName> "diflufenikan";
@@ -15910,6 +15917,7 @@ fosfid""";
                                               <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/fludioksonil> <http://agroscan.com/ontology/activeMaterialName> "fludioksonil",
                                                                                               "fludioksonil ";
+                                            <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/leaf_mold>;
                                             a owl:NamedIndividual,
                                               <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/flufenacet> <http://agroscan.com/ontology/activeMaterialName> "flufenacet ",
@@ -16150,6 +16158,8 @@ fosfid""";
                                             <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/metalaksil-M> <http://agroscan.com/ontology/activeMaterialName> "metalaksil-M",
                                                                                               "metalaksil-M ";
+                                            <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/early_blight>,
+                                                                                 <http://agroscan.com/ontology/late_blight>;
                                             a owl:NamedIndividual,
                                               <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/metaldehid> <http://agroscan.com/ontology/activeMaterialName> "metaldehid";
@@ -16253,6 +16263,7 @@ fosfid""";
                                                  <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/piraklostrobin> <http://agroscan.com/ontology/activeMaterialName> "piraklostrobin",
                                                                                                 "piraklostrobin ";
+                                              <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/septoria_leaf_spot>;
                                               a owl:NamedIndividual,
                                                 <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/piretrin> <http://agroscan.com/ontology/activeMaterialName> "piretrin";
@@ -16307,6 +16318,8 @@ fosfid""";
                                              <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/propamokarb-hidrohlorid> <http://agroscan.com/ontology/activeMaterialName> "propamokarb-hidrohlorid",
                                                                                                          "propamokarb-hidrohlorid ";
+                                                       <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/early_blight>,
+                                                                                            <http://agroscan.com/ontology/late_blight>;
                                                        a owl:NamedIndividual,
                                                          <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/propizamid> <http://agroscan.com/ontology/activeMaterialName> "propizamid";
@@ -16416,6 +16429,7 @@ fosfid""";
                                                 a owl:NamedIndividual,
                                                   <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/trifloksistrobin> <http://agroscan.com/ontology/activeMaterialName> "trifloksistrobin";
+                                                <http://agroscan.com/ontology/cures> <http://agroscan.com/ontology/septoria_leaf_spot>;
                                                 a owl:NamedIndividual,
                                                   <http://agroscan.com/ontology/ActiveMaterial>.
 <http://agroscan.com/ontology/triflusulfuron-metil> <http://agroscan.com/ontology/activeMaterialName> "triflusulfuron-metil";
@@ -16464,6 +16478,4 @@ fosfid""";
                                                         <http://agroscan.com/ontology/Disease>.
 <http://agroscan.com/ontology/zoksamid> <http://agroscan.com/ontology/activeMaterialName> "zoksamid ";
                                         a owl:NamedIndividual,
-                                          <http://agroscan.com/ontology/ActiveMaterial>.
-                      a owl:NamedIndividual,
                                           <http://agroscan.com/ontology/ActiveMaterial>.

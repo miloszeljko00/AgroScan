@@ -24,6 +24,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ontology", "ontology", "{9C
 		ontology\AgroScan.ttl = ontology\AgroScan.ttl
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "model", "model", "{98412AF2-6320-42C4-8FB4-BE81EE6A44E6}"
+	ProjectSection(SolutionItems) = preProject
+		model\main.py = model\main.py
+		model\model.keras = model\model.keras
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

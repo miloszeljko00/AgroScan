@@ -1,4 +1,6 @@
 ﻿using AgroScan.Application.Common.Interfaces;
+using AgroScan.Application.Common.Security;
+using AgroScan.Core.Constants;
 using AgroScan.Core.Entities;
 
 namespace AgroScan.Application.Features.ActiveMaterials.Queries;
@@ -6,6 +8,7 @@ public class GetAllActiveMaterialsQueryRequest : IRequest<IReadOnlyCollection<Ac
 {
 }
 
+[Authorize(Roles = Roles.User)]
 public class GetAllActiveMaterialsQueryHandler(IOntologyService ontologyService) : IRequestHandler<GetAllActiveMaterialsQueryRequest, IReadOnlyCollection<ActiveMaterial>>
 {
     private readonly IOntologyService _ontologyService = ontologyService;

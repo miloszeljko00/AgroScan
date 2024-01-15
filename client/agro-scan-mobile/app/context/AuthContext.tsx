@@ -47,14 +47,14 @@ export const AuthProvider = ({children}: any) => {
             return {error: true, message: 'Session expired!'}
         }
         try{
-            const result = await axios.post(`${API_URL}/refresh`,{refreshToken});
+            const result = await axios.post(`${API_URL}/refresh`,{refreshToken:refreshToken});
             setAuthState({
                 ...authState,
                 access_token: result.data.accessToken,
                 refresh_token: result.data.refreshToken,
                 authenticated: true
             });
-            axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.access_token}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`;
             await SecureStorage.setItemAsync(AUTH_STATE, JSON.stringify(authState));
         }catch (e) {
             await logout();
@@ -67,7 +67,7 @@ export const AuthProvider = ({children}: any) => {
         },
         async (error) => {
             const originalRequest = error.config;
-            if (error.response.status === 401 && !originalRequest._retry) {
+            if (error && error.response && error.response.status === 401 && !originalRequest._retry) {
                 originalRequest._retry = true;
                 const refreshResult = await refreshToken();
                 if (refreshResult && refreshResult.error) {
@@ -99,7 +99,7 @@ export const AuthProvider = ({children}: any) => {
                 authenticated: true
             }
             setAuthState(authState);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.access_token}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`;
             await SecureStorage.setItemAsync(AUTH_STATE, JSON.stringify(authState));
         }catch (e) {
             return {error: true, message: 'Invalid credentials'};

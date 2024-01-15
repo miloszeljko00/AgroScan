@@ -3,12 +3,12 @@ using VDS.RDF.Query;
 using VDS.RDF;
 using AgroScan.Application.Common.Interfaces;
 using Microsoft.Extensions.Configuration;
-using AgroScan.Application.Features.AgroChemicals.Commands;
 using VDS.RDF.Ontology;
 using VDS.RDF.Writing;
 using AngleSharp.Io;
 using OfficeOpenXml;
 using System.Text;
+using AgroScan.Application.Features.AgroChemicals;
 
 namespace AgroScan.Infrastructure.Ontology;
 internal class OntologyService(ISparqlQueryProcessor sparqlQueryProcessor, IGraph graph, IConfiguration configuration) : IOntologyService

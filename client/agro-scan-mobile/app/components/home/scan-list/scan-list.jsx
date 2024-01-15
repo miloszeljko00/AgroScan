@@ -7,10 +7,13 @@ import {useState} from "react";
 import Scan from "../scan/scan";
 import styles from "./scan-list.style";
 
-const ScanList = ({scans}) => {
+const ScanList = ({scans, onSelected}) => {
     const renderItem = ({ item }) => {
-        return <Scan scan={item} />;
+        return <Scan scan={item} onClicked={onRowClicked}/>;
     };
+    const onRowClicked = (scan) => {
+        onSelected(scan);
+    }
     return (
         <View>
             <FlatList

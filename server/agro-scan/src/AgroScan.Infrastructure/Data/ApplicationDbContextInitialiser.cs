@@ -84,7 +84,7 @@ public class ApplicationDbContextInitialiser
         }
 
         // Default users
-        var administrator = new ApplicationUser { UserName = "admin@email.com", Email = "admin@email.com", TwoFactorEnabled = false };
+        var administrator = new ApplicationUser { UserName = "jsantovac0@gmail.com", Email = "jsantovac0@gmail.com", TwoFactorEnabled = false };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
@@ -94,7 +94,7 @@ public class ApplicationDbContextInitialiser
                 await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
-        var user = new ApplicationUser { UserName = "user@email.com", Email = "user@email.com", TwoFactorEnabled = false };
+        var user = new ApplicationUser { UserName = "miloszeljko00@gmail.com", Email = "miloszeljko00@gmail.com", TwoFactorEnabled = false };
 
         if (_userManager.Users.All(u => u.UserName != user.UserName))
         {

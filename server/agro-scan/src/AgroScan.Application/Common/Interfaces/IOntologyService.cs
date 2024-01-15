@@ -1,4 +1,4 @@
-﻿using AgroScan.Application.Features.AgroChemicals.Commands;
+﻿using AgroScan.Application.Features.AgroChemicals;
 using VDS.RDF;
 using VDS.RDF.Query;
 
