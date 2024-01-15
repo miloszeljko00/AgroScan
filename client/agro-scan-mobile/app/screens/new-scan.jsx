@@ -102,7 +102,7 @@ const NewScan = ({navigation}) => {
                         { base64: true }
                     );
                     createScan(resizedImage.base64).then((response) => {
-                        navigation.navigate('Home');
+                        navigation.replace('ScanInfo', {data: response.data});
                     }).catch((error) => {
                         console.error(error);
                     });
