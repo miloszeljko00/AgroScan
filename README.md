@@ -1,5 +1,7 @@
 # AgroScan
 
+Demo: https://www.youtube.com/shorts/e4VMekQRpNM
+
 AgroScan is a mobile application that allows users to take an image of a plant so that it can analyze it and detect if there is any disease present on the plant in the image. If it detects the disease, it will provide the users with a list of recommended agrochemicals they can use to treat that disease.
 
 The project consists of three parts. The first one is the mobile application written in React Native. Its purpose is to provide users with an elegant interface to a system of disease detection and treatment recommendations. The second one is the web API written in .NET Core. Its purpose is to handle users' data about previous scans and recommendations and also to provide new recommendations for disease treatment using ontology. Recommendations are made by connecting active ingredients, from which agrochemicals are made, to diseases they cure. The last part is the web API written in Python Flask. Its role in this system is to provide access to CNN models for predicting diseases to a .NET Core web API. It takes an image as input and returns a predicted disease and plant to the .NET Core web API.
